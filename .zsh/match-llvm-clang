@@ -1,0 +1,15 @@
+match-llvm-clang() {
+  local repo_root="$(git rev-parse --show-toplevel)"
+  if [[ "$(basename "${repo_root}")" == "clang" ]]; then
+    local other_repo="${repo_root}/../.."
+  else
+    local other_repo="${repo_root}/tools/clang"
+  fi
+
+  git svn fetch
+  local repo_rev="r$(git svn find-rev HEAD)"
+  git -C "${other_repo}" svn fetch
+  local other_repo_commit="$(git -C "${other_repo}" \
+    svn find-rev -B "${repo_rev}")"
+  git -C "${other_repo}" checkout "${other_repo_commit}"
+}
