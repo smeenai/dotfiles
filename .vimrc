@@ -1,4 +1,6 @@
+scriptencoding utf-8
 set nocompatible
+set encoding=utf-8 fileencoding=utf-8
 set tabstop=8 softtabstop=4 shiftwidth=4 expandtab
 if has("autocmd")
   filetype plugin indent on
