@@ -6,6 +6,7 @@ if has("autocmd")
   filetype plugin indent on
   syntax on
 endif
+set backspace=indent,eol,start
 set incsearch
 "set ignorecase
 "set smartcase
