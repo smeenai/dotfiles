@@ -32,7 +32,8 @@ if has('gui_running')
     let g:solarized_termtrans=1
     colorscheme solarized
 else
-    colorscheme zellner
+    set background=dark
+    colorscheme torte
 endif
 
 function! Wrap(width)
