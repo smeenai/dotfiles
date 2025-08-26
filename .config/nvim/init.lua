@@ -81,44 +81,10 @@ treesitter_configs.setup {
 }
 
 
-function clangd_root_dir(fname)
-  return vim.fs.root(fname, 'compile_commands.json')
-end
-
-function cppls_root_dir(fname)
-  return vim.fs.root(fname, '.buckconfig')
-end
-
--- https://github.com/neovim/nvim-lspconfig?tab=readme-ov-file#quickstart
-local lspconfig = require('lspconfig')
-
-lspconfig.clangd.setup {
-  autostart = false,
-  root_dir = clangd_root_dir,
-}
-
-
-local lsp_roots = {}
-vim.api.nvim_create_autocmd('BufReadPost', {
-  callback = function(arg)
-    -- This is called in the context of the buffer.
-    local filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'proto' }
-    if not vim.list_contains(filetypes, vim.bo.filetype) then
-      return
-    end
-
-
-    local clangd_root = clangd_root_dir(arg.file)
-    if clangd_root then
-      if lsp_roots[clangd_root] then
-        return
-      end
-      lsp_roots[clangd_root] = true
-    end
-
-    vim.cmd('LspStart clangd')
-  end,
+vim.lsp.enable({
+  "clangd",
 })
+
 
 
 -- https://neovim.io/doc/user/lsp.html#lsp-config
